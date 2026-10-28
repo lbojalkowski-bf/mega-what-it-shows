@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · what it hides'
+title: '#4471 · three problems, not one'
 owner: lbojalkowski-bf
 status: proposed
 reviewed: 2026-10-28
@@ -29,22 +29,24 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 
 1. **`parser`** · [ticket #4](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/4):
    the shared parser reads every date month first, and day-first tenants get the day and month
-   swapped. The `parser` row above, without the one-day moves. This is the bug the queued fix is for.
+   swapped. The `parser` row above, as the desk's view files it, the one-day moves included and
+   footnoted. This is the bug the queued fix is for.
 2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
    the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
    month first, as told, and the form reads the date the tenant's way. The `hint` row above. The
    parser fix does not touch it: the form's hint does.
 3. **one-day move** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
    the reports the desk read as a one-day move (the note under the table). A date converted
-   between time zones, not a day/month swap; neither fix touches it.
+   between time zones, not a day/month swap; neither fix touches it. Its reports are counted where
+   they are filed, under `parser`, so this ticket covers none of its own.
 
 ## How the reports were split
 
 1. One id, one report: rows the export repeats count once.
 2. Every report takes its cause from its tenant and channel (`causes.ts`), not from the intake
    tag, which is a guess from the reporter's browser.
-3. A report the desk read as a one-day move (`desk-notes.json`) goes to the one-day ticket, not
-   to the cause it is filed under. Each report is counted once.
+3. A report the desk read as a one-day move (`desk-notes.json`) is counted where it is filed and
+   footnoted there, as the desk's view does. Each report is counted once.
 
 ## Since April
 
