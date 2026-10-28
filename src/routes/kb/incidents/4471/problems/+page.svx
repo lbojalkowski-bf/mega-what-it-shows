@@ -29,8 +29,8 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 
 1. **`parser`** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
    the shared parser reads every date month first, and day-first tenants get the day and month
-   swapped. The `parser` row above, without the reports read as a one-day move. This is the bug
-   the queued fix is for.
+   swapped. The `parser` row above, counted the way the desk's view files it: the reports read
+   as a one-day move are in this row too. This is the bug the queued fix is for.
 2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
    the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
    month first, as told, and the form reads the date the tenant's way. The `hint` row above. It
@@ -38,13 +38,14 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 3. **`one-day`** · [ticket #3](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/3):
    the date moves by one day, not by a month swap. One meeting shows Tuesday in Lisbon and Monday
    in Toronto, an invite arrives before the booking, "every booking in June is one day off". The
-   reports read as a one-day move, under the table. The tenant rule files them under `parser`;
-   the likely cause is a date converted between time zones, which neither fix touches.
+   reports read as a one-day move, in the note under the table. The desk's view counts them where
+   they are filed, under `parser`; this ticket tracks them as their own problem. The likely cause is a date converted between time zones, which neither fix touches.
 
 ## How the reports were split
 
 1. One id, one report: rows the export repeats count once.
-2. A report the desk read as a one-day move (`desk-notes.json`) is its own problem.
+2. A report the desk read as a one-day move (`desk-notes.json`) stays counted where it is filed,
+   as the desk's view does, and also has its own ticket.
 3. Every other report takes its cause from its tenant and channel (`causes.ts`), not from the
    intake tag, which is a guess from the reporter's browser.
 
