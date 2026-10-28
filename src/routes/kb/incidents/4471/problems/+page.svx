@@ -28,31 +28,33 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 ## The problems
 
 1. **`parser`** · [ticket #4](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/4):
-   the shared parser reads every date month first, and day and month swap. This is the bug the
-   queued fix is for.
+   the shared parser reads every date month first, and day-first tenants get the day and month
+   swapped. The `parser` row above, without the one-day moves. This is the bug the queued fix is for.
 2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
-   the `booking-v3` form prints `MM/DD/YYYY` under its date field, so people at day-first tenants
-   type month first. The parser fix does not touch it: the form's hint does.
+   the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
+   month first, as told, and the form reads the date the tenant's way. The `hint` row above. The
+   parser fix does not touch it: the form's hint does.
 3. **one-day move** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
    the reports the desk read as a one-day move (the note under the table). A date converted
    between time zones, not a day/month swap; neither fix touches it.
 
-## How the reports were counted
+## How the reports were split
 
-1. As the desk tagged them at intake: the "tagged as" column above.
-2. The reports the desk read as a one-day move (`desk-notes.json`) go to their own ticket, not to
-   the tag they came in with.
-3. Rows are counted as the export lists them, repeats included.
+1. One id, one report: rows the export repeats count once.
+2. Every report takes its cause from its tenant and channel (`causes.ts`), not from the intake
+   tag, which is a guess from the reporter's browser.
+3. A report the desk read as a one-day move (`desk-notes.json`) goes to the one-day ticket, not
+   to the cause it is filed under. Each report is counted once.
 
 ## Since April
 
 <QueueTimeline ticket={4471} />
 
-## Why one ticket hid two
+## Why one ticket hid three
 
 Decision [0001](/kb/decisions/0001-dedupe-by-subject) merges on subject alone. Reports about
 different bugs use the same words ("Date is wrong"), so they landed in one ticket. Its own
-consequence says engineering merges separate tickets later; nobody splits merged ones. A later
-decision record should replace it: merge on cause (tenant, form, channel), not on subject.
+consequence says engineering merges separate tickets later; nobody splits merged ones. 0001 is
+accepted, so it stays as it is: [decision 0002](/kb/decisions/0002-merge-on-cause) replaces it.
 
 <RenderStamp {signature} />

@@ -1,0 +1,35 @@
+---
+layout: runbook
+title: '0002 · Duplicates share a cause'
+owner: lbojalkowski-bf
+status: proposed
+reviewed: 2026-10-28
+signature: v1.eyJzdWIiOiIyMzM1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMjA4ODYsImV4cCI6MTc5MzMwNzI4Nn0.07VeGMUuBh59UF-fiCXUMaG28VJHO5j933nS7TUlZyA
+---
+
+<script>
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+</script>
+
+**Date:** 28 October 2026 · **Deciders:** support desk · **Replaces:** [0001](/kb/decisions/0001-dedupe-by-subject)
+
+## Context
+
+Decision 0001 merges reports on subject alone. [#4471](/kb/incidents/4471) shows the cost: reports
+about three different problems use the same words ("Date is wrong"), so they landed in one ticket
+marked known, with one fix queued for one of them. See [what #4471 hid](/kb/incidents/4471/problems).
+Engineering merges separate tickets later; nobody splits merged ones.
+
+## Decision
+
+Two reports are the same issue when they share a cause: the tenant (its locale and booking form)
+and the channel, as `causes.ts` reads them. The subject line and the intake tag do not decide it.
+A report the desk reads differently from its cause (`desk-notes.json`) gets its own ticket.
+
+## Consequences
+
+- Merging needs the tenant directory, not only the subject. The rule already runs in `causes.ts`.
+- Big tickets stay one problem each, so a queued fix closes the whole ticket.
+- 0001 is not edited; this record replaces it.
+
+<RenderStamp {signature} />

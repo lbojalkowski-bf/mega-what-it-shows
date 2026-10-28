@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="../../_app/immutable/entry/start.B6tbXaNO.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/yWb52uYj.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/DDtofzG6.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/BnJNfgVW.js" rel="modulepreload">
+		<link href="../../_app/immutable/entry/app.Bt8PRXGd.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/DQcYyhWM.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/D8_ckXA7.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/BFVZ3Ft2.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/Cl0jTb7b.js" rel="modulepreload">
+		<link href="../../_app/immutable/nodes/0.kedY_GYc.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/BakI3qgx.js" rel="modulepreload">
+		<link href="../../_app/immutable/nodes/4.DRKviiMi.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/C-5s3mZG.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/WybKdvBW.js" rel="modulepreload">
+		<link href="../../_app/immutable/chunks/Crsv_NDN.js" rel="modulepreload">
+		<!--e2jw2j--><!----><title>0002 · Duplicates share a cause · support kb</title>
+		<link href="../../_app/immutable/assets/runbook.BhhgOc_n.css" rel="stylesheet">
+		<link href="../../_app/immutable/assets/RenderStamp.CMZ6TBbc.css" rel="stylesheet">
+  </head>
+  <body>
+    <div style="display: contents"><!--[--><!--[0--><!--[--><!--[--><div class="kb svelte-e2jw2j"><header><a class="crumb svelte-e2jw2j" href="/kb">support desk · kb</a> <h1 class="svelte-e2jw2j">0002 · Duplicates share a cause</h1> <p class="meta svelte-e2jw2j"><span>owner <b>lbojalkowski-bf</b></span> <span class="status proposed svelte-e2jw2j">proposed</span> <span class="svelte-e2jw2j">reviewed 2026-10-28 · 0 days ago</span></p></header> <!--[-1--><!--]--> <main><p><strong>Date:</strong> 28 October 2026 · <strong>Deciders:</strong> support desk · <strong>Replaces:</strong> <a href="/kb/decisions/0001-dedupe-by-subject">0001</a></p> <h2>Context</h2> <p>Decision 0001 merges reports on subject alone. <a href="/kb/incidents/4471">#4471</a> shows the cost: reports
+about three different problems use the same words (“Date is wrong”), so they landed in one ticket
+marked known, with one fix queued for one of them. See <a href="/kb/incidents/4471/problems">what #4471 hid</a>.
+Engineering merges separate tickets later; nobody splits merged ones.</p> <h2>Decision</h2> <p>Two reports are the same issue when they share a cause: the tenant (its locale and booking form)
+and the channel, as <code>causes.ts</code> reads them. The subject line and the intake tag do not decide it.
+A report the desk reads differently from its cause (<code>desk-notes.json</code>) gets its own ticket.</p> <h2>Consequences</h2> <ul><li>Merging needs the tenant directory, not only the subject. The rule already runs in <code>causes.ts</code>.</li> <li>Big tickets stay one problem each, so a queued fix closes the whole ticket.</li> <li>0001 is not edited; this record replaces it.</li></ul> <!--[0--><p class="stamp svelte-1280m42">desk ref <b class="svelte-1280m42">DR-T3B4-GEDN</b></p><!--]--><!----><!----></main> <footer class="svelte-e2jw2j">Pages are written by people. Tables and charts are built from data at render time.</footer></div><!--]--><!----><!--]--><!--]--> <!--[-1--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_10huygv = {
+						base: new URL("../..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.B6tbXaNO.js"),
+						import("../../_app/immutable/entry/app.Bt8PRXGd.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 4],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+  </body>
+</html>
