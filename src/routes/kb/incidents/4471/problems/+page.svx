@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · two problems, not one'
+title: '#4471 · what it hides'
 owner: lbojalkowski-bf
 status: proposed
 reviewed: 2026-10-28
@@ -14,11 +14,12 @@ signature: v1.eyJzdWIiOiIyMzM1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
 </script>
 
-[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The desk's own view of it
-shows two causes. The queued parser fix closes only the first one.
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. That issue is the
+`parser` row of the desk's own view, and it stays in #4471. The same view shows two more
+problems merged into it that the queued fix does not touch.
 
 <Callout kind="warn">
-Not one issue. Each problem below has its own ticket with the reports it covers.
+Not one issue. Each problem #4471 hid now has its own ticket with the reports it covers.
 </Callout>
 
 ## What #4471 holds
@@ -27,17 +28,19 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 
 ## The problems
 
-1. **`parser`** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
-   the shared parser reads every date month first, and day-first tenants get the day and month
-   swapped. The `parser` row above. This is the bug the queued fix is for.
+1. **`parser`** · #4471 itself: the shared parser reads every date month first, and day-first
+   tenants get the day and month swapped. The `parser` row above. This is the bug the queued fix
+   is for, so it needs no new ticket.
 2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
    the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
    month first, as told, and the form reads the date the tenant's way. The `hint` row above. It
    looks like the parser bug, but the parser fix does not touch it: the form's hint does. Until now it
    had no ticket of its own.
 
-The reports the desk read as a one-day move (the note under the table) are counted where they
-are filed, under `parser`, and footnoted there, as the desk's view does. Merge early, count once.
+3. **one-day move** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
+   the reports the desk read as a one-day move (the note under the table). A date converted
+   between time zones, not a day/month swap; neither fix touches it. The desk's view files them
+   under `parser` and footnotes them there.
 
 ## How the reports were split
 
