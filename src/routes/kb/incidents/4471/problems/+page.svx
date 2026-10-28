@@ -1,0 +1,59 @@
+---
+layout: runbook
+title: '#4471 · three problems, not one'
+owner: lbojalkowski-bf
+status: proposed
+reviewed: 2026-10-28
+signature: v1.eyJzdWIiOiIyMzM1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYXQiOjE3OTMyMjA4ODYsImV4cCI6MTc5MzMwNzI4Nn0.07VeGMUuBh59UF-fiCXUMaG28VJHO5j933nS7TUlZyA
+---
+
+<script>
+  import ProblemTable from '#lib/kb/ProblemTable.svelte';
+  import CauseTable from '#lib/kb/CauseTable.svelte';
+  import Callout from '#lib/kb/Callout.svelte';
+  import RenderStamp from '#lib/kb/RenderStamp.svelte';
+
+  const repo = 'https://github.com/lbojalkowski-bf/mega-what-it-shows/issues';
+  const links = { parser: `${repo}/1`, hint: `${repo}/2`, 'one-day': `${repo}/3` };
+</script>
+
+[#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Read report by report, it
+holds three problems. The queued parser fix closes only the first one.
+
+<Callout kind="warn">
+Not one issue. Each problem below has its own ticket with the reports it covers.
+</Callout>
+
+## The problems
+
+<ProblemTable ticket={4471} {links} />
+
+- **`parser`**: the shared parser reads every date month first, and day-first tenants get the day
+  and month swapped. This is the bug the queued fix is for.
+- **`hint`**: the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants'
+  people type month first, as told, and the form reads the date the tenant's way. The result looks
+  the same as `parser`, but the parser fix does not touch it: the form's hint does.
+- **`one-day`**: the date moves by one day, not by a month swap. One meeting shows Tuesday in Lisbon
+  and Monday in Toronto, an invite arrives before the booking, "every booking in June is one day
+  off". The desk already read these apart (`desk-notes.json`), but the tenant rule files them under
+  `parser`. The likely cause is a date converted between time zones, which neither fix touches.
+
+## How the reports were split
+
+1. One id, one report: rows the export repeats count once.
+2. A report whose body moves the date by one day (`desk-notes.json`, `oneDayMove`) is `one-day`.
+3. Every other report takes its cause from its tenant and channel (`causes.ts`), not from the
+   intake tag, which is a guess from the reporter's browser.
+
+The same reports, as the incident page files them:
+
+<CauseTable ticket={4471} />
+
+## Why one ticket hid three
+
+Decision [0001](/kb/decisions/0001-dedupe-by-subject) merges on subject alone. Reports about
+different bugs use the same words ("Date is wrong"), so they landed in one ticket. Its own
+consequence says engineering merges separate tickets later; nobody splits merged ones. A later
+decision record should replace it: merge on cause (tenant, form, channel), not on subject.
+
+<RenderStamp {signature} />
