@@ -8,13 +8,10 @@ signature: v1.eyJzdWIiOiIyMzM1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 ---
 
 <script>
-  import ProblemTable from '#lib/kb/ProblemTable.svelte';
   import CauseTable from '#lib/kb/CauseTable.svelte';
+  import QueueTimeline from '#lib/kb/QueueTimeline.svelte';
   import Callout from '#lib/kb/Callout.svelte';
   import RenderStamp from '#lib/kb/RenderStamp.svelte';
-
-  const repo = 'https://github.com/lbojalkowski-bf/mega-what-it-shows/issues';
-  const links = { parser: `${repo}/1`, hint: `${repo}/2`, 'one-day': `${repo}/3` };
 </script>
 
 [#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. Read report by report, it
@@ -24,30 +21,36 @@ holds three problems. The queued parser fix closes only the first one.
 Not one issue. Each problem below has its own ticket with the reports it covers.
 </Callout>
 
+## What #4471 holds
+
+<CauseTable ticket={4471} />
+
 ## The problems
 
-<ProblemTable ticket={4471} {links} />
-
-- **`parser`**: the shared parser reads every date month first, and day-first tenants get the day
-  and month swapped. This is the bug the queued fix is for.
-- **`hint`**: the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants'
-  people type month first, as told, and the form reads the date the tenant's way. The result looks
-  the same as `parser`, but the parser fix does not touch it: the form's hint does.
-- **`one-day`**: the date moves by one day, not by a month swap. One meeting shows Tuesday in Lisbon
-  and Monday in Toronto, an invite arrives before the booking, "every booking in June is one day
-  off". The desk already read these apart (`desk-notes.json`), but the tenant rule files them under
-  `parser`. The likely cause is a date converted between time zones, which neither fix touches.
+1. **`parser`** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
+   the shared parser reads every date month first, and day-first tenants get the day and month
+   swapped. The `parser` row above, without the reports read as a one-day move. This is the bug
+   the queued fix is for.
+2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
+   the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
+   month first, as told, and the form reads the date the tenant's way. The `hint` row above. It
+   looks like the parser bug, but the parser fix does not touch it: the form's hint does.
+3. **`one-day`** · [ticket #3](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/3):
+   the date moves by one day, not by a month swap. One meeting shows Tuesday in Lisbon and Monday
+   in Toronto, an invite arrives before the booking, "every booking in June is one day off". The
+   reports read as a one-day move, under the table. The tenant rule files them under `parser`;
+   the likely cause is a date converted between time zones, which neither fix touches.
 
 ## How the reports were split
 
 1. One id, one report: rows the export repeats count once.
-2. A report whose body moves the date by one day (`desk-notes.json`, `oneDayMove`) is `one-day`.
+2. A report the desk read as a one-day move (`desk-notes.json`) is its own problem.
 3. Every other report takes its cause from its tenant and channel (`causes.ts`), not from the
    intake tag, which is a guess from the reporter's browser.
 
-The same reports, as the incident page files them:
+## Since April
 
-<CauseTable ticket={4471} />
+<QueueTimeline ticket={4471} />
 
 ## Why one ticket hid three
 
