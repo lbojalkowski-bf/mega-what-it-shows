@@ -1,6 +1,6 @@
 ---
 layout: runbook
-title: '#4471 · three problems, not one'
+title: '#4471 · two problems, not one'
 owner: lbojalkowski-bf
 status: proposed
 reviewed: 2026-10-28
@@ -15,7 +15,7 @@ signature: v1.eyJzdWIiOiIyMzM1IiwiYXVkIjoiY2hhbGxlbmdlOndoYXQtaXQtc2hvd3MiLCJpYX
 </script>
 
 [#4471](/kb/incidents/4471) is marked known: one issue, one fix queued. The desk's own view of it
-shows more than one problem. The queued parser fix closes only the first one.
+shows two causes. The queued parser fix closes only the first one.
 
 <Callout kind="warn">
 Not one issue. Each problem below has its own ticket with the reports it covers.
@@ -29,34 +29,33 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 
 1. **`parser`** · [ticket #4](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/4):
    the shared parser reads every date month first, and day-first tenants get the day and month
-   swapped. The `parser` row above, as the desk's view files it, the one-day moves included and
-   footnoted. This is the bug the queued fix is for.
+   swapped. The `parser` row above. This is the bug the queued fix is for.
 2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
    the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
-   month first, as told, and the form reads the date the tenant's way. The `hint` row above. The
-   parser fix does not touch it: the form's hint does.
-3. **one-day move** · [ticket #1](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/1):
-   the reports the desk read as a one-day move (the note under the table). A date converted
-   between time zones, not a day/month swap; neither fix touches it. Its reports are counted where
-   they are filed, under `parser`, so this ticket covers none of its own.
+   month first, as told, and the form reads the date the tenant's way. The `hint` row above. It
+   looks like the parser bug, but the parser fix does not touch it: the form's hint does. Until now it
+   had no ticket of its own.
+
+The reports the desk read as a one-day move (the note under the table) are counted where they
+are filed, under `parser`, and footnoted there, as the desk's view does. Merge early, count once.
 
 ## How the reports were split
 
 1. One id, one report: rows the export repeats count once.
 2. Every report takes its cause from its tenant and channel (`causes.ts`), not from the intake
    tag, which is a guess from the reporter's browser.
-3. A report the desk read as a one-day move (`desk-notes.json`) is counted where it is filed and
-   footnoted there, as the desk's view does. Each report is counted once.
+3. A report the desk read as a one-day move (`desk-notes.json`) stays in the ticket of the cause
+   it is filed under, with a footnote; it is not counted twice.
 
 ## Since April
 
 <QueueTimeline ticket={4471} />
 
-## Why one ticket hid three
+## Why one ticket hid two
 
 Decision [0001](/kb/decisions/0001-dedupe-by-subject) merges on subject alone. Reports about
 different bugs use the same words ("Date is wrong"), so they landed in one ticket. Its own
-consequence says engineering merges separate tickets later; nobody splits merged ones. 0001 is
-accepted, so it stays as it is: [decision 0002](/kb/decisions/0002-merge-on-cause) replaces it.
+consequence says engineering merges separate tickets later; nobody splits merged ones. A later
+decision record should replace it: merge on cause (tenant, form, channel), not on subject.
 
 <RenderStamp {signature} />
