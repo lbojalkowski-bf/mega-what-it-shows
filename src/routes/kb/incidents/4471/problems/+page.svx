@@ -29,12 +29,12 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 
 1. **`parser`** · [ticket #4](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/4):
    the shared parser reads every date month first, and day-first tenants get the day and month
-   swapped. The `parser` row above, counted as the desk's view files it: the one-day moves are
-   counted here and footnoted. This is the bug the queued fix is for.
+   swapped. Every report from a tenant on `booking-v2`. This is the bug the queued fix is for.
 2. **`hint`** · [ticket #2](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/2):
    the `booking-v3` form prints `MM/DD/YYYY` under its date field. Day-first tenants' people type
-   month first, as told, and the form reads the date the tenant's way. The `hint` row above. The
-   parser fix does not touch it: the form's hint does.
+   month first, as told, and the form reads the date the tenant's way. Every report from a tenant on
+   `booking-v3`, whatever channel the complaint came in by: the table above files only the `form`
+   channel here. The parser fix does not touch it: the form's hint does.
 3. **one-day move** · [ticket #5](https://github.com/lbojalkowski-bf/mega-what-it-shows/issues/5):
    the reports the desk read as a one-day move (the note under the table). A date converted
    between time zones, not a day/month swap; neither fix touches it.
@@ -42,11 +42,11 @@ Not one issue. Each problem below has its own ticket with the reports it covers.
 ## How the reports were split
 
 1. One id, one report: rows the export repeats count once.
-2. Every report takes its cause from its tenant and channel (`causes.ts`), not from the intake
-   tag, which is a guess from the reporter's browser.
-3. A report the desk read as a one-day move (`desk-notes.json`) is counted where it is filed,
-   under `parser`, and footnoted there, as the desk's view does. The one-day ticket lists those
-   reports so the problem has its own ticket.
+2. Every report takes its cause from its tenant: where they are and which booking form they run
+   (the tenant directory, as exported), not from the intake tag, which is a guess from the
+   reporter's browser, and not from the channel the complaint came in by.
+3. A report the desk read as a one-day move (`desk-notes.json`) goes to the one-day ticket, not
+   to its tenant's cause. Each report is counted once.
 
 ## Since April
 
